@@ -15,7 +15,7 @@ Here is the table:
 | 6     | NPU                      | 800 MHz - 1.2 GHz                        | Full Duplex           | Slave                 |
 | **AHB Clients**                                                                                                                             |
 | 7     | System DMA               | 200 - 400 MHz                            | Full Duplex           | Master                |
-| 8     | Ethernet Controller      | 50 - 250 MHz (Core) / 100-200 MHz (IF)   | Full Duplex           | **Master & Slave**    |
+| 8     | Ethernet Controller      | 50 - 250 MHz (Core) / 100-200 MHz (IF)   | Full Duplex           | Master    |
 | 9     | NAND Flash Controller    | 50 - 200 MHz                             | Half Duplex           | Slave                 |
 | 10    | SRAM Controller          | 100 - 200 MHz                            | Full Duplex           | Slave                 |
 | 11    | Camera Controller        | 100 - 200 MHz                            | Half Duplex           | Slave                 |
@@ -34,10 +34,7 @@ Here is the table:
 
 ### **Important Notes:**
 
-1.  **Ethernet Controller:** This is a special case. It has two logical interfaces:
-    *   It is an **AHB Slave** for configuration by the CPU.
-    *   It is an **AHB Master** for reading/writing packet data to/from memory (like SRAM or DDR).
-2.  **Full vs. Half Duplex:** The classification here is based on the functional role of the IP on the bus.
+1.  **Full vs. Half Duplex:** The classification here is based on the functional role of the IP on the bus.
     *   **Full Duplex** clients are those that actively initiate transactions (Master behavior) or are complex slaves that require high-bandwidth read/write capabilities (like memory controllers).
     *   **Half Duplex** clients are simple slaves that are primarily configured and read from, with data flow being largely unidirectional at the system bus level for their core function.
-3.  **Clock Domains:** You have numerous clock domains. A robust Clock Domain Crossing (CDC) strategy is critical for the bridges and interconnect between these different frequency regions (e.g., between the high-speed AXI domain and the lower-speed AHB domain).
+2.  **Clock Domains:** You have numerous clock domains. A robust Clock Domain Crossing (CDC) strategy is critical for the bridges and interconnect between these different frequency regions (e.g., between the high-speed AXI domain and the lower-speed AHB domain).
